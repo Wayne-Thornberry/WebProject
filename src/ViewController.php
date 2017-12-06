@@ -12,7 +12,6 @@ namespace itb;
 class ViewController{
 
     public function __construct(){
-        // Do stuff when called
     }
 
     public function viewIndex(){
@@ -31,16 +30,25 @@ class ViewController{
         require __DIR__ . '/../view/about.php';
     }
 
+    public function viewManagement(){
+        if(!isset($_SESSION['logged_in']) || ($_SESSION['logged_in'] == false)) {
+            require __DIR__ . '/../view/management.php';
+        }else{
+            $this->viewIndex();
+        }
+    }
+
     public function viewProduct(){
-        if($_GET['product'] != null) {
+        if((isset($_GET['product'])) && ($_GET['product'] != null)){
             require __DIR__ . '/../view/product.php';
         }else{
-
+            header('location: ?view=8');
+            echo 'no product to display';
         }
     }
 
     public function viewProcess(){
-        if(false) {
+        if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == false)) {
             require __DIR__ . '/../view/process.php';
         }else{
             $this->viewIndex();
@@ -48,18 +56,22 @@ class ViewController{
     }
 
     public function viewAccount(){
-        if(true){
+        if(isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == true)){
             require __DIR__ . '/../view/account.php';
         }else{
-            $this->viewIndex();
+            header('location: ?view=0');
         }
     }
 
     public function viewControl(){
-        if(true) {
-            require __DIR__ . '/../view/process.php';
+        if(isset($_SESSION['privileges']) && ($_SESSION['privileges'] > 0)){
+            require __DIR__ . '/../view/control.php';
         }else{
-            $this->viewIndex();
+            header('location: ?view=0');
         }
+    }
+
+    public function viewError(){
+        require  __DIR__ . '/../view/error.php';
     }
 }

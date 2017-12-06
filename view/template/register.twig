@@ -1,0 +1,29 @@
+<section>
+    <h2>Register</h2>
+    <form action="?view=6&login=0" method="post">
+        <hr>
+        Account Information
+        {% if invalid  == 1%}
+            <div class="invalid">Invalid Details</div>
+        {% endif %}
+        <hr>
+        <span>Username:</span><input maxlength="22" type="text" name="Username" placeholder="a-Z 1-9 Charaters" pattern="[0-9A-Za-z].{3,}" required ><span class="required">*</span>
+        <span>Email: </span><input type="email" name="Email" placeholder="@Example.com" required><span class="required">*</span>
+        <span>Password:</span><input maxlength="22" type="password" name="Password" placeholder="22 Characters Max" pattern="[0-9A-Za-z].{3,}"  required><span class="required">*</span>
+        <hr>
+        User Information
+        <hr>
+        <span>First Name:</span><input type="text" name="FirstName" required><span class="required">*</span>
+        <span>Last Name:</span><input type="text" name="LastName" required><span class="required">*</span>
+        <span>Date of Birth:</span><input type="date" name="DOB" required><span class="required">*</span>
+        <span>Country:</span><input type="text" name="Country"><span class="required"></span>
+        <span>City:</span><input type="text" name="City"><span class="required"></span>
+        <span>Address:</span><input type="text" name="Address"><span class="required"></span>
+        <span>ZIP:</span><input type="text" name="ZIP"><span class="required"></span>
+        <hr>
+        Please fill out any box with <span class="required"> * </span> beside it
+        <hr>
+        <a href="?view=5&login=0" type="reset" name="Reset" value="Reset">Clear Forum</a>
+        <button type="submit" name="Submit" value="Submit">Submit</button>
+    </form>
+</section>
