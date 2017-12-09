@@ -7,10 +7,22 @@ class User{
     private $uId;
     private $uPrivilege;
     private $uName;
+    private $uEmail;
     private $uPassword;
     private $uFirstName;
     private $uLastName;
     private $uDOB;
+
+    public function __construct($uId, $uPrivilege, $uName, $uEmail, $uPassword, $uFirstName, $uLastName, $uDOB){
+        $this->uId = $uId;
+        $this->uPrivilege = $uPrivilege;
+        $this->uName = $uName;
+        $this->uEmail = $uEmail;
+        $this->uPassword = $uPassword;
+        $this->uFirstName = $uFirstName;
+        $this->uLastName = $uLastName;
+        $this->uDOB = $uDOB;
+    }
 
     public function getUId(){
         return $this->uId;
@@ -34,6 +46,14 @@ class User{
 
     public function setUName($uName){
         $this->uName = $uName;
+    }
+
+    public function getUEmail(){
+        return $this->uEmail;
+    }
+
+    public function setUEmail($uEmail){
+        $this->uEmail = $uEmail;
     }
 
     public function getUPassword(){

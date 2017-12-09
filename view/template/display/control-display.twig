@@ -1,0 +1,35 @@
+<div>
+    <a href="?view=8&manage=0">View Users</a>
+    <a href="?view=8&manage=1">View Staff</a>
+    <a href="?view=8&manage=2">View Admins</a>
+    <a href="?view=8&manage=3">View Products</a>
+
+    <table border="1">
+        <tr>
+            <td colspan="{{ Limit + 3 }}">This is the {{ manage }} page</td>
+        </tr>
+
+            <tr>
+                <td>Index</td>
+                {% for i in 0..Limit - 1 %}
+                    <td>{{ Columns[i] }}</td>
+                {% endfor %}
+                <td>Edit</td>
+                <td>Remove</td>
+            </tr>
+
+            {% for key,value in Data  %}
+                <tr>
+                    <td>{{ key }}</td>
+                {% for key,value in value %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+                    <td><button>Edit</button></td>
+                    <td><button>Remove</button></td>
+                </tr>
+            {% endfor %}
+        <tr>
+            <td colspan="{{ Limit + 3 }}"><button>Add New Entry</button></td>
+        </tr>
+    </table>
+</div>

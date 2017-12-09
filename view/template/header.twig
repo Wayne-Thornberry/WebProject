@@ -11,11 +11,13 @@
     <div>
         <div>
             <ul>
-                {% if login == 1 %} <!-- Change -->
-
-                <li><a href="#">Account</a></li>
+                {% if LoggedIn %} <!-- Change -->
+                    {% if Privilege == 2 %}
+                        <li><a href="?view=8&manage=0">Control Panel</a></li>
+                    {% endif %}
+                <li><a href="?view=7">Account</a></li>
                 <li><a href="#">Cart</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="?view=6">Logout</a></li>
 
                 {%  else %}
 

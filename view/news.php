@@ -3,7 +3,13 @@
 $twigFile = new Twig_Loader_Filesystem('../view/template');
 $twig = new Twig_Environment($twigFile);
 
-echo $twig->render('header.twig'); // Header/Navbar
+$LoggedIn = $_SESSION['LoggedIn'];
+$Privilege = Null;
+
+echo $twig->render('header.twig', array(
+    'LoggedIn' => $_SESSION['LoggedIn'],
+    'Privilege' => $_SESSION['User']->getUPrivilege(),
+)); // Header/Navbar
 
 echo $twig->render('display/news-display.twig'); // News Display
 
