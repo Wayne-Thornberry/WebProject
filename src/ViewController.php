@@ -30,14 +30,6 @@ class ViewController{
         require __DIR__ . '/../view/about.php';
     }
 
-    public function viewManagement(){
-        if(!isset($_SESSION['LoggedIn']) || ($_SESSION['LoggedIn'] == false)) {
-            require __DIR__ . '/../view/management.php';
-        }else{
-            header('location: ?view=0');
-        }
-    }
-
     public function viewProduct(){
         if((isset($_GET['product'])) && ($_GET['product'] != null)){
             require __DIR__ . '/../view/product.php';
@@ -47,11 +39,19 @@ class ViewController{
         }
     }
 
-    public function viewProcess(){
-        if(isset($_SESSION['LoggedIn']) && ($_SESSION['LoggedIn'] == false)) {
-            require __DIR__ . '/../view/login.php';
+    public function viewManagement(){
+        if(!isset($_SESSION['LoggedIn']) || ($_SESSION['LoggedIn'] == false)) {
+            require __DIR__ . '/../view/gate.php';
         }else{
-            require __DIR__ . '/../view/logout.php';
+            header('location: ?view=0');
+        }
+    }
+
+    public function viewProcess(){
+        if(isset($_GET['process']) && $_GET['process'] != null) {
+            require __DIR__ . '/../view/process.php';
+        }else{
+           //header('location: ?view=0');
         }
     }
 
@@ -64,7 +64,7 @@ class ViewController{
     }
 
     public function viewControl(){
-        if(isset($_SESSION['User']) && ($_SESSION['User']->getUPrivilege() == 2)){
+        if(isset($_SESSION['User']) && ($_SESSION['User']->getUPrivilege() > 0)){
             require __DIR__ . '/../view/control.php';
         }else{
             header('location: ?view=0');

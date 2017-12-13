@@ -1,0 +1,59 @@
+.error{
+    width: 100%;
+    background-color: #c00000;
+    color: white;
+    display: block;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+.userpanel{
+    width: 400px;
+    height: auto;
+    margin: 25px auto;
+    border: 1px solid ;
+    padding: 10px;
+    text-align: center;
+}
+
+.userpanel div {
+    display: inline-block;
+    height: 25px;
+    margin: 5px 0px;
+}
+
+.userpanel .text {
+    width: 25%;
+    text-align: left;
+}
+
+.userpanel .input {
+    width: 70%;
+    background-color: red;
+}
+
+.userpanel .input input {
+    width: 100%;
+    border: none;
+    background-color: #f3f3f3;
+    height: 25px;
+}
+
+.userpanel .required {
+    width: 5%;
+    text-align: center;
+    color: red;
+}
+
+.userpanel hr{
+    margin: 5px 0;
+}
+
+.userpanel button{
+    width: 30%;
+    margin: 5px;
+    text-align: left;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+}

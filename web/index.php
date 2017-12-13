@@ -1,23 +1,23 @@
 <?php
 
-use itb\WebApplication;
-use itb\Database;
-use itb\User;
-
 require_once __DIR__ . '/../vendor/autoload.php';
-$db = new Database();
+use itb\WebApplication;
+use itb\User;
+use itb\Database;
 
+
+$pdo = new Database();
 
 session_start();
 if(!isset($_SESSION['SessionStart'])){
     $_SESSION['LoggedIn'] = false;
     $_SESSION['LoginAttempts'] = 0;
-    $_SESSION['User'] = new User('','','','','','','','');
+    $_SESSION['User'] = new User('NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL');
     $_SESSION['Privilege'] = 0;
     $_SESSION['SessionStart'] = true;
 }
 
-var_dump($_SESSION);
+//$pdo->setup();
 
 $webApp = new WebApplication();
 $webApp->run();

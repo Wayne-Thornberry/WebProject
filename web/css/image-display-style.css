@@ -1,0 +1,12 @@
+.image_display{
+    margin: 15px auto;
+    width: 75%;
+    background-color: bisque;
+    height: 500px;
+}
+
+.image_display img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}

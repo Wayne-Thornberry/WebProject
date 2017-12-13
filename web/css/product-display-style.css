@@ -1,0 +1,90 @@
+.product_display{
+    width: 75%;
+    margin: 10px auto;
+    height: auto;
+}
+
+.product_display h2{
+    margin: 0px auto;
+    padding: 5px 0px;
+    width: auto;
+    background-color: #0075a9;
+    color: white;
+    text-align: center;
+}
+
+.sale_display{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    white-space: nowrap;
+    overflow-x: scroll;
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.products_display{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.product{
+    text-align: center;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    position:relative;
+    overflow: hidden;
+    background-color: white;
+    margin: 0 5px;
+}
+
+.product h2{
+    height: 40px;
+    font-family: Arial;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 24px;
+    line-height: 40px;
+    display: block;
+}
+
+.product .price{
+    position: absolute;
+    margin-top: 25px;
+    right: 0;
+    height: 30px;
+    width: 80px;
+    font-size: 26px;
+    line-height: 30px;
+    color: white;
+    background-color: #005400;
+    display: block;
+}
+
+.product img{
+    display: block;
+    height: 260px;
+    width: 250px;
+}
+
+.product a{
+    width: 100%;
+    display: block;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 50px;
+    text-transform: uppercase;
+    background-color: #005400;
+    border: none;
+}
+
+.product a:last-child{
+    background-color: #0075a9;
+}

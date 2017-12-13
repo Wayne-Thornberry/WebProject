@@ -9,14 +9,47 @@ class Database{
     public function __construct(){
         try {
             $this->pdo = new \PDO('sqlite:' . __DIR__ . '\..\data\database.sqlite');
-            $this->createProductsTable();
-            $this->createUsersTable();
-            $this->insertUser(2,'Admin','Admin@Website.com','Admin','Admin','Admin','1999-01-01');
-            $this->insertUser(1,'Staff','Staff@Website.com','Staff','Staff','Staff','1999-01-01');
-            $this->insertUser(0,'User','User@Website.com','User','User','User','1999-01-01');
         }catch(Exception $e){
             echo "Failed to connect to database";
         }
+    }
+
+    /// setup ///
+
+    public function setup(){
+        $this->createUsersTable();
+        $this->createProductsTable();
+        $this->createSubscribersTable();
+
+        $userpass = password_hash('User',1);
+        $staffpass = password_hash('Staff',1);
+        $adminpass = password_hash('Admin',1);
+
+        $this->pdo->query("
+            INSERT INTO Users (uId, uPrivilege, uName, uEmail, uPassword, uFirstName, uLastName, uDOB) 
+            VALUES (2, 2, 'Admin', 'Admin@website.com', '$adminpass', 'Admin', 'Admin', '1999-01-01')
+        ");
+
+        $this->pdo->query("
+            INSERT INTO Users (uId, uPrivilege, uName, uEmail, uPassword, uFirstName, uLastName, uDOB) 
+            VALUES (1, 1, 'Staff', 'Staff@website.com', '$staffpass', 'Staff', 'Staff', '1999-01-01')
+        ");
+
+        $this->pdo->query("
+            INSERT INTO Users (uId, uPrivilege, uName, uEmail, uPassword, uFirstName, uLastName, uDOB) 
+            VALUES (0, 0, 'User', 'User@website.com', '$userpass', 'User', 'User', '1999-01-01')
+        ");
+
+        $this->pdo->query("
+            INSERT INTO Products (pId, pName, pPrice, pQuantity, pImage, pDescription, pTagOne, pTagTwo) 
+            VALUES (2, 'Product', 0.99, 99, 'images/product.png', 'Small Description', 'Product One', 'Product Two')
+        ");
+
+        $this->pdo->query("
+            INSERT INTO Subscribers (sId, sEmail) 
+            VALUES (0, 'Subscriber@website.com')
+        ");
+
     }
 
     public function createProductsTable(){
@@ -25,9 +58,11 @@ class Database{
                 pId INT PRIMARY KEY NOT NULL,
                 pName VARCHAR(20),
                 pPrice DECIMAL(10,2),
+                pQuantity INT,
                 pImage VARCHAR(255),
                 pDescription VARCHAR(255),
-                pTags VARCHAR(20)
+                pTagOne VARCHAR(20),
+                pTagTwo VARCHAR(20)
                 )"
             );
     }
@@ -49,35 +84,64 @@ class Database{
 
     public function createSubscribersTable(){
         $this->pdo->query("
-            CREATE TABLE IF NOT EXISTS Users(
-                uId INT PRIMARY KEY NOT NULL,
-                uEmail VARCHAR(255) NOT NULL,
+            CREATE TABLE IF NOT EXISTS Subscribers(
+                sId INT PRIMARY KEY NOT NULL,
+                sEmail VARCHAR(255) NOT NULL
                 )"
         );
     }
 
-    public function insertProduct($pName, $pPrice, $pDescription, $pImage, $pTag){
+    /// login verification ///
 
-        $sql = $this->pdo->prepare("
-            INSERT INTO Products (pId, pName, pPrice, pImage, pDescription, pTags) 
-            VALUES ((SELECT COUNT(pId) + 1 FROM Products), :pName, :pPrice, :pImage, :pDescription, :pTags)"
-        );
+    public function verifyUser($uName, $uEmail){
+        $sql = $this->pdo->query("
+        SELECT COUNT(*)
+        FROM Users
+        WHERE (uName LIKE '$uName') OR (uEmail LIKE '$uEmail')
+        ");
 
-        $sql->bindParam(':pName', $pName);
-        $sql->bindParam(':pPrice', $pPrice);
-        $sql->bindParam(':pImage', $pImage);
-        $sql->bindParam(':pDescription', $pDescription);
-        $sql->bindParam(':pTags', $pTag);
-        $sql->execute();
+        if($sql->fetchColumn() == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public function insertUser($uPrivilege, $uName, $uEmail, $uPassword, $uFirstName, $uLastName, $uDOB){
+    /// User Section ///
 
+    public function getUser($uName){ // Get user by name
+        $sql = $this->pdo->prepare("
+            SELECT *
+            FROM Users
+            WHERE uName = '$uName'");
+        $sql->execute();
+        return $sql->fetch();
+    }
+
+    public function getAllUsers(){
+        $sql = $this->pdo->query("
+        SELECT *
+        FROM Users
+        ORDER BY uId ASC 
+        ");
+        return $sql;
+    }
+
+    public function updateUser($uId, $uPrivilege, $uName, $uEmail, $uPassword, $uFirstName, $uLastName, $uDOB){ // Update user in table
+        $sql = $this->pdo->query("
+        UPDATE Users
+        SET uPrivilege = '$uPrivilege', uName = '$uName', uEmail = '$uEmail', uPassword = '$uPassword', uFirstName = '$uFirstName', uLastName = '$uLastName', uDOB = '$uDOB'
+        WHERE uId = '$uId';
+        ");
+    }
+
+    public function createUser($uPrivilege, $uName, $uEmail, $uPassword, $uFirstName, $uLastName, $uDOB){
         $sql = $this->pdo->prepare("
             INSERT INTO Users (uId, uPrivilege, uName, uEmail, uPassword, uFirstName, uLastName, uDOB) 
-            VALUES ((SELECT COUNT(uId) + 1 FROM Users), :uPrivilege, :uName, :uEmail, :uPassword, :uFirstName, :uLastName, :uDOB)"
-        );
+            VALUES ((SELECT MAX(uId) + 1 FROM Users), :uPrivilege, :uName, :uEmail, :uPassword, :uFirstName, :uLastName, :uDOB)
+        ");
 
+        $uPassword = password_hash($uPassword,1);
         $sql->bindParam(':uPrivilege', $uPrivilege);
         $sql->bindParam(':uName', $uName);
         $sql->bindParam(':uEmail', $uEmail);
@@ -88,74 +152,20 @@ class Database{
         $sql->execute();
     }
 
-    public function verifyUser($uName, $uPassword){
+    public function removeUser($uId){
         $sql = $this->pdo->query("
-        SELECT COUNT(*)
-        FROM Users
-        WHERE uName = '$uName' AND uPassword = '$uPassword' 
+        DELETE FROM Users
+        WHERE uId = '$uId'
         ");
-        return $sql->fetchColumn();
     }
 
+    /// Product Section ///
+
     public function getProduct($pId){
-        $sql = $this->pdo->prepare("
+        $sql = $this->pdo->query("
             SELECT *
             FROM Products
             WHERE pId = '$pId'");
-        $sql->execute();
-        if($sql->fetch()[0] == null){
-            return 'No such item by that Id';
-        }else {
-            return $sql->fetch();
-        }
-    }
-
-    public function getUser($uName){
-        $sql = $this->pdo->prepare("
-            SELECT *
-            FROM Users
-            WHERE uName = '$uName'");
-        $sql->execute();
-        return $sql->fetch();
-    }
-
-    public function doesUserExist($uName, $uEmail){
-        $sql = $this->pdo->query("
-            SELECT COUNT(*)
-            FROM Users
-            WHERE uName = '$uName' OR uEmail = '$uEmail'
-            ");
-        if($sql->fetchColumn() == 1){
-            return true; // user exists
-        }else{
-            return false; // user does not exist
-        }
-    }
-
-    public function getAllUsers(){
-        $sql = $this->pdo->query("
-        SELECT *
-        FROM Users
-        WHERE uPrivilege = 0
-        ");
-        return $sql;
-    }
-
-    public function getAllStaff(){
-        $sql = $this->pdo->query("
-        SELECT *
-        FROM Users
-        WHERE uPrivilege = 1
-        ");
-        return $sql;
-    }
-
-    public function getAllAdmins(){
-        $sql = $this->pdo->query("
-        SELECT *
-        FROM Users
-        WHERE uPrivilege = 2
-        ");
         return $sql;
     }
 
@@ -166,4 +176,71 @@ class Database{
         ");
         return $sql;
     }
+
+    public function updateProduct($pId, $pName, $pPrice, $pQuantity, $pImage, $pDescription, $pTagOne, $pTagTwo){ // Update user in table
+        $sql = $this->pdo->query("
+        UPDATE Products
+        SET pName = '$pName', pPrice = '$pPrice', pQuantity = '$pQuantity', pImage = '$pImage', pDescription = '$pDescription', pTagOne = '$pTagOne', pTagTwo = '$pTagTwo'
+        WHERE pId = '$pId';
+        ");
+    }
+
+    public function createProduct($pName, $pPrice, $pQuantity, $pImage, $pDescription, $pTagOne, $pTagTwo){
+        $sql = $this->pdo->prepare("
+            INSERT INTO Products (pId, pName, pPrice, pQuantity, pImage, pDescription, pTagOne, pTagTwo)
+            VALUES ((SELECT MAX(pId) + 1 FROM Products), :pName, :pPrice, :pQuantity, :pImage, :pDescription, :pTagOne, :pTagTwo)
+        ");
+
+        $sql->bindParam(':pName', $pName);
+        $sql->bindParam(':pPrice', $pPrice);
+        $sql->bindParam(':pQuantity', $pQuantity);
+        $sql->bindParam(':pImage', $pImage);
+        $sql->bindParam(':pDescription', $pDescription);
+        $sql->bindParam(':pTagOne', $pTagOne);
+        $sql->bindParam(':pTagTwo', $pTagTwo);
+        $sql->execute();
+    }
+
+    public function removeProduct($pId){
+        $sql = $this->pdo->query("
+        DELETE FROM Products
+        WHERE pId = '$pId'
+        ");
+    }
+
+    /// Subscribers Section ///
+
+    public function getAllSubscribers(){
+        $sql = $this->pdo->query("
+        SELECT *
+        FROM Subscribers
+        ");
+        return $sql;
+    }
+
+    public function updateSubscriber($sId, $sEmail){
+        $sql = $this->pdo->query("
+        UPDATE Subscribers
+        SET sEmail = '$sEmail'
+        WHERE sId = '$sId';
+        ");
+    }
+
+    public function createSubscriber($sEmail){
+        $sql = $this->pdo->prepare("
+            INSERT INTO Subscribers (sId, sEmail)
+            VALUES ((SELECT MAX(sId) + 1 FROM Subscribers), :sEmail)
+        ");
+
+        $sql->bindParam(':sEmail', $sEmail);
+        $sql->execute();
+    }
+
+    public function removeSubscriber($sId){
+        $sql = $this->pdo->query("
+        DELETE FROM Subscribers
+        WHERE sId = '$sId'
+        ");
+    }
+
 }

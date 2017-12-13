@@ -1,13 +1,13 @@
-<section>
-    <form action="?view=6&login=1" method="post">
-        {% if LoginAttempts > 0%}
-            <div>Invalid Password Or Username</div>
+<div class="userpanel">
+    <form action="?view=6&process=1" method="post">
+        {% if Error == 1%}
+            <div class="error">Invalid Password Or Username</div>
         {% endif %}
         <hr>
         <h2>Login</h2>
         <hr>
-        <input maxlength="22" type="text" name="Username" placeholder="Username" pattern="[0-9A-Za-z].{3,}" required ><span class="required">*</span>
-        <input maxlength="22" type="password" name="Password" placeholder="Password" pattern="[0-9A-Za-z].{1,}"  required><span class="required">*</span>
+        <div class="input"><input maxlength="22" type="text" name="Username" placeholder="Username" pattern="[0-9A-Za-z].{3,}" required ></div>
+        <div class="input"><input maxlength="22" type="password" name="Password" placeholder="Password" pattern="[0-9A-Za-z].{1,}"  required></div>
         <br>
         <button type="submit" name="Login" value="Login">Login</button>
         <hr>
@@ -15,4 +15,4 @@
         <br>
         <a href="#">Forgot your Password?</a>
     </form>
-</section>
+</div>

@@ -1,3 +1,16 @@
-    <div>
-        Products to be displayed here
+<div class="product_display">
+    <h2>Title or Some Description Here </h2>
+    <div {% if View == 0 %} class="sale_display" {% else %} class="products_display" {% endif %}>
+        {% for product in Products %}
+        <!--{% if product != null %}
+            --><div class="product">
+                    <h3>{{ product[1] }}</h3>
+                    <span class="price"> €{{ product[2] }}</span>
+                    <img src="{{ product[4] }}">
+                    <a href="#">Add To Cart</a>
+                    <a href="?view=4&product={{ product[0] }}">View Details</a>
+                </div><!--
+            {% endif %}
+        {%  endfor %} -->
     </div>
+</div>

@@ -6,8 +6,9 @@ $twig = new Twig_Environment($twigFile);
 echo $twig->render('header.twig', array(
     'LoggedIn' => $_SESSION['LoggedIn'],
     'Privilege' => $_SESSION['User']->getUPrivilege(),
+    'Active' => $_GET['view'],
 )); // Header/Navbar
 
-echo 'Account Page';
+echo var_dump($_SESSION['User']);
 
 echo $twig->render('footer.twig'); // Footer/SiteMap

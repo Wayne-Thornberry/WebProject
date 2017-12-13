@@ -1,35 +1,56 @@
 <div>
-    <a href="?view=8&manage=0">View Users</a>
-    <a href="?view=8&manage=1">View Staff</a>
-    <a href="?view=8&manage=2">View Admins</a>
-    <a href="?view=8&manage=3">View Products</a>
+    <a href="?view=8">Return</a>
+    {% if Manage == 0 %}
+        <a href="#">Filter By</a>
+    {% elseif Manage == 1 %}
+        <a href="#">Filter By</a>
+    {% endif %}
+
+    {% if Error > 0 %}
+        <hr>
+        Error
+        <hr>
+    {% endif %}
 
     <table border="1">
         <tr>
-            <td colspan="{{ Limit + 3 }}">This is the {{ manage }} page</td>
-        </tr>
-
-            <tr>
-                <td>Index</td>
-                {% for i in 0..Limit - 1 %}
-                    <td>{{ Columns[i] }}</td>
-                {% endfor %}
-                <td>Edit</td>
-                <td>Remove</td>
-            </tr>
-
-            {% for key,value in Data  %}
-                <tr>
-                    <td>{{ key }}</td>
-                {% for key,value in value %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-                    <td><button>Edit</button></td>
-                    <td><button>Remove</button></td>
-                </tr>
+            <td>Index</td>
+            {% for i in 0..Limit - 1 %}
+                <td>{{ Columns[i] }}</td>
             {% endfor %}
+            <td>Update</td>
+            <td>Remove</td>
+        </tr>
+        {% for key,value in Data  %}
+            <form action="?view=6" method="post">
+            <tr>
+                <td>{{ key }}</td>
+                    {% for i in 0..Limit - 1 %}
+                        {% if i == 0 %}
+                            <td><input type="text" name="{{ Columns[i] }}" value="{{ value[i] }}" readonly="readonly" disabled></td>
+                        {% else %}
+                            <td><input type="text" name="{{ Columns[i] }}" value="{{ value[i] }}" required> </td>
+                        {% endif %}
+                    {% endfor %}
+                    <td><button type="submit" value="Submit" formaction="?view=6&process=3&manage={{ Manage }}&index={{ value[0] }}">Update</button></td>
+                    {% if key != 0 %}
+                        <td><button type="submit" value="Submit" formaction="?view=6&process=4&manage={{ Manage }}&index={{ value[0] }}">Remove</button></td>
+                    {% endif %}
+            </tr>
+            </form>
+        {% endfor %}
         <tr>
-            <td colspan="{{ Limit + 3 }}"><button>Add New Entry</button></td>
+            <form action="?view=6" method="post">
+            <td>{{ Columns[i] }}</td>
+            {% for i in 0..Limit -1 %}
+                {% if i == 0 %}
+                    <td><input type="text" name="{{ Columns[i] }}" placeholder="{{ Columns[i] }}" readonly="readonly" disabled></td>
+                {% else %}
+                    <td><input type="text" name="{{ Columns[i] }}" placeholder="{{ Columns[i] }}" required></td>
+                {% endif %}
+            {% endfor %}
+            <td colspan="2"><button  type="submit" value="Submit" formaction="?view=6&process=5&manage={{ Manage }}">Add New Entry</button></td>
+            </form>
         </tr>
     </table>
 </div>

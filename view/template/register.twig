@@ -1,29 +1,29 @@
-<section>
+<div class="userpanel">
     <h2>Register</h2>
-    <form action="?view=6&login=0" method="post">
-        <hr>
-        Account Information
-        {% if invalid  == 1%}
-            <div class="invalid">Invalid Details</div>
+    <form action="?view=6&process=2" method="post">
+        {% if Error == 2%}
+            <div class="error">Email or Username already in use</div>
         {% endif %}
         <hr>
-        <span>Username:</span><input maxlength="22" type="text" name="Username" placeholder="a-Z 1-9 Charaters" pattern="[0-9A-Za-z].{3,}" required ><span class="required">*</span>
-        <span>Email: </span><input type="email" name="Email" placeholder="@Example.com" required><span class="required">*</span>
-        <span>Password:</span><input maxlength="22" type="password" name="Password" placeholder="22 Characters Max" pattern="[0-9A-Za-z].{3,}"  required><span class="required">*</span>
+        Account Information
+        <hr>
+        <div class="text">Username: </div><div class="input"><input maxlength="22" type="text" name="Username" placeholder="Example123" pattern="[0-9A-Za-z].{3,}" required ></div><div class="required">*</div>
+        <div class="text">Email: </div><div class="input"><input type="email" name="Email" placeholder="@Example.com" required></div><div class="required">*</div>
+        <div class="text">Password: </div><div class="input"><input maxlength="22" type="password" name="Password" placeholder="Example123" pattern="[0-9A-Za-z].{3,}"  required></div ><div class="required">*</div>
         <hr>
         User Information
         <hr>
-        <span>First Name:</span><input type="text" name="FirstName" required><span class="required">*</span>
-        <span>Last Name:</span><input type="text" name="LastName" required><span class="required">*</span>
-        <span>Date of Birth:</span><input type="date" name="DOB" required><span class="required">*</span>
-        <span>Country:</span><input type="text" name="Country"><span class="required"></span>
-        <span>City:</span><input type="text" name="City"><span class="required"></span>
-        <span>Address:</span><input type="text" name="Address"><span class="required"></span>
-        <span>ZIP:</span><input type="text" name="ZIP"><span class="required"></span>
+        <div class="text">First Name: </div><div class="input"><input type="text" name="FirstName" placeholder="Example" required></div><div class="required">*</div>
+        <div class="text">Last Name: </div><div class="input"><input type="text" name="LastName" placeholder="Example" required></div><div class="required">*</div>
+        <div class="text">Date of Birth: </div><div class="input"><input type="text" name="DOB" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" placeholder="YYYY-MM-DD" required></div><div class="required">*</div>
+        <div class="text">Country: </div><div class="input"><input type="text" name="Country"></div><div class="required">*</div>
+        <div class="text">City: </div><div class="input"><input type="text" name="City"></div><div class="required">*</div>
+        <div class="text">Address: </div><div class="input"><input type="text" name="Address"></div><div class="required">*</div>
+        <div class="text">ZIP: </div><div class="input"><input type="text" name="ZIP"></div><div class="required">*</div>
         <hr>
-        Please fill out any box with <span class="required"> * </span> beside it
+        Please fill out any box with <span class="required">*</span> beside it
         <hr>
         <a href="?view=5&login=0" type="reset" name="Reset" value="Reset">Clear Forum</a>
         <button type="submit" name="Submit" value="Submit">Submit</button>
     </form>
-</section>
+</div>

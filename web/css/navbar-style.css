@@ -1,0 +1,91 @@
+.nav_background{
+    background-color: #0075a9;
+    height: 100px;
+}
+
+
+.nav_background img{
+    width: 20%;
+    float: left;
+    height: 70px;
+}
+
+.nav_background h1{
+    width: 20%;
+    float: left;
+    color: white;
+    font-size: 42px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+}
+
+.nav_background .nav_info{
+    background-color: #333333;
+    height: 30px;
+}
+
+.nav_background .nav_info ul{
+    display: inline-block;
+    float: right;
+    padding: 0px 2px;
+    height: 30px;
+}
+
+.nav_background .nav_info ul li{
+    display: inline-block;
+    float: left;
+    list-style: none;
+    margin: 0px 2px;
+    text-align: center;
+}
+
+.nav_background .nav_info ul li a{
+    display: block;
+    text-decoration: none;
+    color: lightgray;
+    padding: 0px 5px;
+    font-family: Arial;
+    line-height: 30px;
+    width: 100px;
+}
+
+.nav_background nav {
+    height: 70px;
+    float: right;
+}
+
+.nav_background nav ul{
+    display: inline-block;
+    padding: 0px 2px;
+    float: right;
+    wdith: 100%;
+}
+
+.nav_background nav ul li{
+    display: inline-block;
+    height: 70px;
+    margin: 0px 2px;
+    list-style: none;
+    text-align: center;
+}
+
+.nav_background nav ul li a{
+    line-height: 70px;
+    color: white;
+    font-family: Arial;
+    font-size: 22px;
+    width: 150px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.nav_background .nav_active{
+    background-color: #0088c0;
+}
+
+.nav_background .nav_info_active{
+    background-color: #626262;
+}

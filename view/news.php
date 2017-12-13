@@ -9,6 +9,7 @@ $Privilege = Null;
 echo $twig->render('header.twig', array(
     'LoggedIn' => $_SESSION['LoggedIn'],
     'Privilege' => $_SESSION['User']->getUPrivilege(),
+    'Active' => $_GET['view'],
 )); // Header/Navbar
 
 echo $twig->render('display/news-display.twig'); // News Display

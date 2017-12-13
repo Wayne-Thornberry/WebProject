@@ -1,0 +1,59 @@
+footer {
+    width: 100%;
+    height: auto;
+    background-color: #333333;
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+footer .site-map{
+    width: 100%;
+    display: block;
+    height: 200px;
+    text-align: center;
+}
+
+footer h4, footer span, footer a{
+    text-decoration: none;
+    color: #999999;
+    text-align: center;
+}
+
+footer .map{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+footer .map hr{
+    margin: 5px auto;
+    width: 75%;
+    border: 1px solid #626262;
+}
+
+
+footer .map h5{
+    text-decoration: none;
+    color: #999999;
+}
+
+footer .map a{
+    text-decoration: none;
+    color: #999999;
+}
+
+footer .map ul{
+    padding: 2px;
+    color: #999999;
+
+}
+
+footer .map li{
+    display: block;
+    list-style: none;
+}
+
+footer .map li a {
+    display: block;
+}
