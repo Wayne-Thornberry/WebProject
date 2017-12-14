@@ -32,9 +32,9 @@
                             <td><input type="text" name="{{ Columns[i] }}" value="{{ value[i] }}" required> </td>
                         {% endif %}
                     {% endfor %}
-                    <td><button type="submit" value="Submit" formaction="?view=6&process=3&manage={{ Manage }}&index={{ value[0] }}">Update</button></td>
+                    <td><input type="submit" value="Update" formaction="?view=6&process=3&manage={{ Manage }}&index={{ value[0] }}"></td>
                     {% if key != 0 %}
-                        <td><button type="submit" value="Submit" formaction="?view=6&process=4&manage={{ Manage }}&index={{ value[0] }}">Remove</button></td>
+                        <td><input type="submit" value="Remove" formaction="?view=6&process=4&manage={{ Manage }}&index={{ value[0] }}" formnovalidate></td>
                     {% endif %}
             </tr>
             </form>
@@ -49,7 +49,7 @@
                     <td><input type="text" name="{{ Columns[i] }}" placeholder="{{ Columns[i] }}" required></td>
                 {% endif %}
             {% endfor %}
-            <td colspan="2"><button  type="submit" value="Submit" formaction="?view=6&process=5&manage={{ Manage }}">Add New Entry</button></td>
+            <td colspan="2"><input  type="submit" value="Add New Entry" formaction="?view=6&process=5&manage={{ Manage }}"></td>
             </form>
         </tr>
     </table>

@@ -1,0 +1,26 @@
+<div class="product-page">
+    {% if Privilege > 0 and Edit == 0 %}
+        <a href="?view=4&product={{ Product.pId }}&edit=1">Edit</a>
+    {% endif %}
+    {% if Edit > 0 %}
+        <a href="?view=4&product={{ Product.pId }}&edit=0">Return</a>
+        <form action="?view=6&process={% if Edit == 1 %}3{% else %}5{% endif %}&manage=1&index={{ Product.pId }}" method="post">
+            <input type="text" value="{{ Product.pName }}" name="pName" placeholder="pName">
+            <img src="{{ Product.pImage }}" class="product_image">
+            <input type="text" value="{{ Product.pPrice }}" name="pPrice" placeholder="pPrice">
+            <input type="text" value="{{ Product.pQuantity }}" name="pQuantity" placeholder="pQuantity">
+            <input type="text" value="{{ Product.pDescription }}" name="pDescription" placeholder="pDescription">
+            <input type="text" value="{{ Product.pTagOne }}" name="pTagOne" placeholder="pTagOne">
+            <input type="text" value="{{ Product.pTagTwo }}" name="pTagTwo" placeholder="pTagTwo">
+            <input type="submit">
+        </form>
+    {% else %}
+        <h2>{{ Product.pName }}</h2>
+        <img src="{{ Product.pImage }}" class="product_image">
+        <span> €{{ Product.pPrice }}</span>
+        <span> {{ Product.pQuantity }} </span>
+        <p>{{ Product.pDescription }}</p>
+        <span> {{ Product.pTagOne  }}</span>
+        <span> {{ Product.pTagTwo  }}</span>
+    {% endif %}
+</div>

@@ -28,7 +28,8 @@ class WebApplication{
             case 7 : $this->viewController->viewAccount(); break;
             case 8 : $this->viewController->viewControl(); break;
             case 9 : $this->viewController->viewError(); break;
-            default : $this->viewController->viewIndex(); break;
+            case 99 : $this->viewController->viewSetup(); break;
+            default : $this->viewController->viewError(); break;
         }
     }
 }

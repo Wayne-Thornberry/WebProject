@@ -1,5 +1,10 @@
 <div class="product_display">
-    <h2>Title or Some Description Here </h2>
+    <div class="product_header">
+        <h2>Products on Sale</h2>
+        {% if Privilege >= 1 %}
+            <a href="?view=4$product=&edit=2">+</a>
+        {% endif %}
+    </div>
     <div {% if View == 0 %} class="sale_display" {% else %} class="products_display" {% endif %}>
         {% for product in Products %}
         <!--{% if product != null %}
@@ -13,4 +18,5 @@
             {% endif %}
         {%  endfor %} -->
     </div>
+
 </div>

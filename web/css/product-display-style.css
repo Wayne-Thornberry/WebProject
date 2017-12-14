@@ -2,15 +2,38 @@
     width: 75%;
     margin: 10px auto;
     height: auto;
+    text-align: center;
 }
 
-.product_display h2{
+.product_display .product_header{
     margin: 0px auto;
-    padding: 5px 0px;
-    width: auto;
+    width: 100%;
     background-color: #0075a9;
     color: white;
+    height: 50px;
+    position: relative;
     text-align: center;
+}
+
+.product_display  .product_header h2{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+
+}
+.product_display .product_header a{
+    text-align: center;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background-color: #005400;
+    color: white;
+    font-size: 42px;
+    float: right;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
 }
 
 .sale_display{
@@ -19,14 +42,6 @@
     background-color: white;
     white-space: nowrap;
     overflow-x: scroll;
-    text-align: center;
-    padding: 15px 0px;
-}
-
-.products_display{
-    width: 100%;
-    height: auto;
-    background-color: white;
     text-align: center;
     padding: 15px 0px;
 }

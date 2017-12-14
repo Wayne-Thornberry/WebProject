@@ -17,6 +17,7 @@ echo $twig->render('header.twig', array(
 echo $twig->render('display/product-display.twig',  array(
     'View' => $_GET['view'],
     'Products' => $database->getAllProducts()->fetchAll(),
+    'Privilege' => $_SESSION['User']->getUPrivilege(),
 )); // Product Display
 
 echo $twig->render('footer.twig'); // Footer/SiteMap

@@ -24,9 +24,8 @@ echo $twig->render('display/product-display.twig',  array(
         $database->getProduct(2)->fetch(),
         $database->getProduct(3)->fetch(),
         $database->getProduct(4)->fetch(),
-        //$database->getProduct(5)->fetch(),
-        //$database->getProduct(6)->fetch(),
-    )
+    ),
+    'Privilege' => $_SESSION['User']->getUPrivilege(),
 )); // Product Display
 
 echo $twig->render('display/news-display.twig'); // News Display

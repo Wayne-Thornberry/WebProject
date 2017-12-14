@@ -17,7 +17,7 @@ if(!isset($_SESSION['SessionStart'])){
     $_SESSION['SessionStart'] = true;
 }
 
-//$pdo->setup();
+
 
 $webApp = new WebApplication();
 $webApp->run();

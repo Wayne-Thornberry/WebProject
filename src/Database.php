@@ -27,7 +27,7 @@ class Database{
 
         $this->pdo->query("
             INSERT INTO Users (uId, uPrivilege, uName, uEmail, uPassword, uFirstName, uLastName, uDOB) 
-            VALUES (2, 2, 'Admin', 'Admin@website.com', '$adminpass', 'Admin', 'Admin', '1999-01-01')
+            VALUES (0, 2, 'Admin', 'Admin@website.com', '$adminpass', 'Admin', 'Admin', '1999-01-01')
         ");
 
         $this->pdo->query("
@@ -37,7 +37,7 @@ class Database{
 
         $this->pdo->query("
             INSERT INTO Users (uId, uPrivilege, uName, uEmail, uPassword, uFirstName, uLastName, uDOB) 
-            VALUES (0, 0, 'User', 'User@website.com', '$userpass', 'User', 'User', '1999-01-01')
+            VALUES (2, 0, 'User', 'User@website.com', '$userpass', 'User', 'User', '1999-01-01')
         ");
 
         $this->pdo->query("
@@ -128,6 +128,7 @@ class Database{
     }
 
     public function updateUser($uId, $uPrivilege, $uName, $uEmail, $uPassword, $uFirstName, $uLastName, $uDOB){ // Update user in table
+        $uPassword = password_hash($uPassword,1);
         $sql = $this->pdo->query("
         UPDATE Users
         SET uPrivilege = '$uPrivilege', uName = '$uName', uEmail = '$uEmail', uPassword = '$uPassword', uFirstName = '$uFirstName', uLastName = '$uLastName', uDOB = '$uDOB'

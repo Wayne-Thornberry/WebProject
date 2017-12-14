@@ -34,8 +34,11 @@ class ViewController{
         if((isset($_GET['product'])) && ($_GET['product'] != null)){
             require __DIR__ . '/../view/product.php';
         }else{
-            header('location: ?view=8');
-            echo 'no product to display';
+            if((isset($_GET['edit'])) && ($_GET['edit'] > 0)){
+                require __DIR__ . '/../view/product.php';
+            }else {
+                header('location: ?view=0');
+            }
         }
     }
 
@@ -51,7 +54,7 @@ class ViewController{
         if(isset($_GET['process']) && $_GET['process'] != null) {
             require __DIR__ . '/../view/process.php';
         }else{
-           //header('location: ?view=0');
+           header('location: ?view=0');
         }
     }
 
@@ -73,5 +76,9 @@ class ViewController{
 
     public function viewError(){
         require  __DIR__ . '/../view/error.php';
+    }
+
+    public function viewSetup(){
+        require  __DIR__ . '/../view/setup.php';
     }
 }
