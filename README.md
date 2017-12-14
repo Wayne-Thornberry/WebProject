@@ -22,7 +22,7 @@ Login: Admin Password: Admin
 Login: Staff Password: Staff
 Login: User Password: User
 
-User ?view=99 to setup the database, but if you download off github the database should be already setup
+Use ?view=99 to setup the database, but if you download off github the database should be already setup
 Database uses SQL lite so make sure the extension is running before starting the website otherwise you will get a 500 error
 
 any unfinished webpage i missed should result in an custom error page that has an option to redirrect back to the index page
